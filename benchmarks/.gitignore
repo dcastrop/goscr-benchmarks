@@ -1,0 +1,11 @@
+nuscr_bin
+tests
+run_bench/run_bench
+
+*.swp
+
+1.boundedFib/goscr/boundedFib
+1.boundedFib/goscr/goscr
+2.boundedPrimeSieve/goscr/boundedPrimeSieve
+2.boundedPrimeSieve/goscr/goscr
+

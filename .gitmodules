@@ -1,0 +1,4 @@
+[submodule "nuscr"]
+	path = nuscr
+	url = github.com:dcastrop/nuscr.git
+	branch = develop

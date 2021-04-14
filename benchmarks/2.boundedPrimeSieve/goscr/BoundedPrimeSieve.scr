@@ -1,0 +1,34 @@
+(*# NestedProtocols #*)
+
+nested protocol Sieve(role M, role W1; new role W2) {
+
+    nested protocol SendNums(role S, role R) {
+        rec SEND {
+            choice at S {
+                Num(n:int) from S to R;
+                continue SEND;
+            } or {
+                End() from S to R;
+            }
+        }
+    }
+
+    W1 calls SendNums(W1, W2);
+
+    choice at W2 {
+        Prime(n:int) from W2 to M;
+        W2 calls Sieve(M, W2);
+    } or {
+        Finish() from W2 to M;
+    }
+
+}
+
+global protocol PrimeSieve(role Master, role Worker) {
+    choice at Worker {
+        Prime(n:int) from Worker to Master;
+        Worker calls Sieve(Master, Worker);
+    } or {
+        Finish() from Worker to Master;
+    }
+}
