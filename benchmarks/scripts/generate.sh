@@ -1,7 +1,13 @@
 #!/bin/bash
 
 # Naming convention: <d>.<protocol> contains <d>.<protocol>/goscr/<Protocol>.scr
-BENCHMARKS="1.boundedFib 2.boundedPrimeSieve 3.fannkuch 4.knuc 5.regex 6.spectralnorm"
+BENCHMARKS="1.boundedFib \
+            2.boundedPrimeSieve \
+            3.fannkuch \
+            4.knuc \
+            5.regex \
+            6.spectralnorm \
+            7.quicksort"
 
 pushd () {
     command pushd "$@" > /dev/null

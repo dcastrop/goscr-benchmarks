@@ -1,0 +1,16 @@
+(*# NestedProtocols #*)
+
+type <go> "[]int" from "builtin" as IntArr;
+
+nested protocol QuickSort(role P; new role R) {
+    choice at P {
+        Right(IntArr) from P to R;
+
+        P calls QuickSort(P);
+        R calls QuickSort(R);
+
+        Sorted() from R to P;
+    } or {
+        Done() from P to R;
+    }
+}
