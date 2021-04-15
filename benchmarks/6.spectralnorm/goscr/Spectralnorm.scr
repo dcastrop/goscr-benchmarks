@@ -1,0 +1,37 @@
+(*# NestedProtocols #*)
+
+type <go> "[]float64" from "builtin" as Vec;
+
+nested protocol Times(role M; new role W) {
+    choice at M {
+        TimesTask(i:int) from M to W;
+        M calls Times(M);
+        TimesResult() from W to M;
+    } or {
+        Finish() from M to W;
+    }
+}
+
+nested protocol TimesTransp(role M; new role W) {
+    choice at M {
+        TimesTranspTask(i:int) from M to W;
+        M calls TimesTransp(M);
+        TimesTranspResult() from W to M;
+    } or {
+        Finish() from M to W;
+    }
+}
+
+global protocol SpectralNorm(role M, role W) {
+    choice at M {
+        TimesTask(i:int) from M to W;
+        M calls Times(M);
+        TimesResult() from W to M;
+        M calls TimesTransp(M);
+        M calls Times(M);
+        M calls TimesTransp(M);
+        do SpectralNorm(M, W);
+    } or {
+        Finish() from M to W;
+    }
+}
