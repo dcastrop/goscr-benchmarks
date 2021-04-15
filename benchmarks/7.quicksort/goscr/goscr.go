@@ -2,17 +2,17 @@ package goscr
 
 import qs "./quicksort"
 
-//package main
-//
-//import qs "./quicksort"
-//import "fmt"
-//
-//func main(){
-//    test := []int{9, 3,1,2,3,1,5,1,4,2,1,3,8,6,4,7,9,5}
-//    QuickSort(test,4)
-//    fmt.Println(test)
-//}
-//
+// package main
+// 
+// import qs "./quicksort"
+// import "fmt"
+// 
+// func main(){
+//     test := []int{9, 3,1,2,3,1,5,1,4,2,1,3,8,6,4,7,9,5}
+//     QuickSort(test)
+//     fmt.Println(test)
+// }
+// 
 // const (
 // SEQ_THRESHOLD = 1024
 // SEQ_THRESHOLD = 3500
@@ -60,33 +60,29 @@ func seqQuickSort(arr []int) {
 	seqQuickSort(arr[pivot+1:])
 }
 
-func QuickSort(arr []int,thres int) {
-    if thres < 2 { thres = 2 }
-    c1 := Ctx{thres, arr}
-    c2 := Ctx{thres, arr}
+func QuickSort(arr []int) {
+    c1 := Ctx(arr)
+    c2 := Ctx(arr)
     qs.Start(&c1, &c2)
 }
 
 
-type Ctx struct {
-    thres int
-    arr []int
-}
+type Ctx []int
 
 // type Ctx_QuickSort_P interface {
 func (c *Ctx) Choice_P_QuickSort_() qs.Select_P {
-    if len(c.arr) < c.thres {
-        seqQuickSort(c.arr)
+    if len([]int(*c)) < SEQ_THRESHOLD {
+        seqQuickSort([]int(*c))
         return qs.Done{}
     } else {
-		pivot := hoarePartition(c.arr, 0, len(c.arr)-1)
-        right := c.arr[pivot+1:]
-        c.arr = c.arr[:pivot+1]
+		pivot := hoarePartition([]int(*c), 0, len([]int(*c))-1)
+        right := (*c)[pivot+1:]
+        *c = (*c)[:pivot+1]
         return qs.Right(right)
     }
 }
 func (c *Ctx) Init_R_QuickSort_Ctx() qs.Ctx_QuickSort_R {
-    nc := Ctx{c.thres, c.arr}
+    nc := Ctx(*c)
     return &nc
 }
 func (_ *Ctx) Recv_R_QuickSort_Sorted(_ qs.Sorted) { }
@@ -94,15 +90,15 @@ func (_ *Ctx) End() { }
 
 // type Ctx_QuickSort_R interface {
 func (c *Ctx) Recv_P_QuickSort_Right(v_2 qs.Right) {
-    c.arr = ([]int)(v_2)
+    *c = ([]int)(v_2)
 
 }
 func (c *Ctx) Init_R_QuickSort_Ctx_2() qs.Ctx_QuickSort_R {
-    nc := Ctx{c.thres, c.arr}
+    nc := Ctx(*c)
     return &nc
 }
 func (c *Ctx) Init_P_QuickSort_Ctx() qs.Ctx_QuickSort_P {
-    nc := Ctx{c.thres, c.arr}
+    nc := Ctx(*c)
     return &nc
 }
 func (c *Ctx) End_P_QuickSort_Ctx(ctx_5 qs.Ctx_QuickSort_P) {

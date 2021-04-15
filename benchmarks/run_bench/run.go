@@ -4,6 +4,10 @@ import (
     bfib "../1.boundedFib"
     prime "../2.boundedPrimeSieve"
     fannkuch "../3.fannkuch"
+    knuc "../4.knuc"
+    regex "../5.regex"
+    sn "../6.spectralnorm"
+    qs "../7.quicksort"
 	"./benchmark"
 	"flag"
 	"fmt"
@@ -43,7 +47,7 @@ func main() {
 	runRegexRedux := flag.Bool("redux", false, "Run benchmark on regexredux protocol")
 	runSpectralNorm := flag.Bool("snorm", false, "Run benchmark on spectralnorm protocol")
 	runKNucleotide := flag.Bool("knucl", false, "Run benchmark on quicksort protocol")
-	//runQuickSort := flag.Bool("quicksort", false, "Run benchmark for quicksort protocol with different thresholds")
+	runQuickSort := flag.Bool("quicksort", false, "Run benchmark for quicksort protocol with different thresholds")
 	runAll := flag.Bool("all", false, "Run all benchmarks")
 
 	// Flags for running protocols
@@ -95,44 +99,44 @@ func main() {
  		strResults[idx] = (benchmark.ResultsToString("primesieve-base", baseResults) + "\n;;")
  		idx++
  	}
-// 	if *runRegexRedux || *runAll {
-// 		fmt.Println("RegexRedux")
-// 		scribbleResults, baseResults := RegexReduxBenchmark(iterations)
-// 		PrintAvgResults(scribbleResults, baseResults)
-// 		strResults[idx] = (benchmark.ResultsToString("regexredux-scribble", scribbleResults) + "\n;;")
-// 		idx++
-// 		strResults[idx] = (benchmark.ResultsToString("regexredux-base", baseResults) + "\n;;")
-// 		idx++
-// 	}
-// 	if *runSpectralNorm || *runAll {
-// 		fmt.Println("SpectralNorm")
-// 		scribbleResults, baseResults := SpectralNormBenchmark(iterations)
-// 		PrintAvgResults(scribbleResults, baseResults)
-// 		strResults[idx] = (benchmark.ResultsToString("spectralnorm-scribble", scribbleResults) + "\n;;")
-// 		idx++
-// 		strResults[idx] = (benchmark.ResultsToString("spectralnorm-base", baseResults) + "\n;;")
-// 		idx++
-// 	}
-// 	if *runKNucleotide || *runAll {
-// 		fmt.Println("KNucleotide")
-// 		scribbleResults, baseResults := KNucleotideBenchmark(iterations)
-// 		PrintAvgResults(scribbleResults, baseResults)
-// 		strResults[idx] = (benchmark.ResultsToString("knucleotide-scribble", scribbleResults) + "\n;;")
-// 		idx++
-// 		strResults[idx] = (benchmark.ResultsToString("knucleotide-base", baseResults) + "\n;;")
-// 		idx++
-// 	}
+ 	if *runRegexRedux || *runAll {
+ 		fmt.Println("RegexRedux")
+ 		scribbleResults, baseResults := regex.RegexReduxBenchmark(iterations)
+ 		PrintAvgResults(scribbleResults, baseResults)
+ 		strResults[idx] = (benchmark.ResultsToString("regexredux-scribble", scribbleResults) + "\n;;")
+ 		idx++
+ 		strResults[idx] = (benchmark.ResultsToString("regexredux-base", baseResults) + "\n;;")
+ 		idx++
+ 	}
+ 	if *runSpectralNorm || *runAll {
+ 		fmt.Println("SpectralNorm")
+ 		scribbleResults, baseResults := sn.SpectralNormBenchmark(iterations)
+ 		PrintAvgResults(scribbleResults, baseResults)
+ 		strResults[idx] = (benchmark.ResultsToString("spectralnorm-scribble", scribbleResults) + "\n;;")
+ 		idx++
+ 		strResults[idx] = (benchmark.ResultsToString("spectralnorm-base", baseResults) + "\n;;")
+ 		idx++
+ 	}
+ 	if *runKNucleotide || *runAll {
+ 		fmt.Println("KNucleotide")
+ 		scribbleResults, baseResults := knuc.KNucleotideBenchmark(iterations)
+ 		PrintAvgResults(scribbleResults, baseResults)
+ 		strResults[idx] = (benchmark.ResultsToString("knucleotide-scribble", scribbleResults) + "\n;;")
+ 		idx++
+ 		strResults[idx] = (benchmark.ResultsToString("knucleotide-base", baseResults) + "\n;;")
+ 		idx++
+ 	}
  	result := strings.Join(strResults, "\n")
  	err := ioutil.WriteFile("benchmark-results.txt", []byte(result), 0644)
  	if err != nil {
  		panic("Error while writing to file")
  	}
-// 
-// 	if *runQuickSort || *runAll {
-// 		fmt.Println("QuickSort")
-// 		fmt.Printf("\nThreshold search\n\n")
-// 		QSThresholdSearch(iterations)
-// 	}
+ 
+ 	if *runQuickSort || *runAll {
+ 		fmt.Println("QuickSort")
+ 		fmt.Printf("\nThreshold search\n\n")
+ 		qs.QSThresholdSearch(iterations)
+ 	}
 // 
 // 	if *ringSize > 0 {
 // 		if *ringSize < 2 {

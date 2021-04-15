@@ -1,8 +1,7 @@
-package base
+package goscr
 
 import (
     "./regex"
-    "fmt"
 	"github.com/GRbit/go-pcre"
 )
 
@@ -82,10 +81,8 @@ func (_ *Ctx_M) Init_W_Regex_Ctx() regex.Ctx_Regex_W {
     return &n
 }
 func (_ *Ctx_M) Recv_W_Regex_NumMatches(x_3 regex.NumMatches) {
-    fmt.Println(x_3)
 }
 func (_ *Ctx_M) Recv_W_Regex_Length(x_4 regex.Length) {
-    fmt.Println(x_4)
 }
 func (_ *Ctx_M) End() {}
 

@@ -1,4 +1,4 @@
-package knuc
+package goscr
 
 import (
     "./knuc"
@@ -272,7 +272,6 @@ func (ctx *Ctx_M) Init_W_ScheduleJobs_Ctx() knuc.Ctx_ScheduleJobs_W {
     return &x
 }
 func (_ *Ctx_M) Recv_W_ScheduleJobs_SequenceResult(x knuc.SequenceResult) {
-    fmt.Println("SEQ:\n\t", x)
 }
 func (ctx *Ctx_M) Init_W_ScheduleJobs_Ctx_2() knuc.Ctx_ScheduleJobs_W {
     x := Ctx_W{"", (*ctx).dna}
@@ -280,7 +279,6 @@ func (ctx *Ctx_M) Init_W_ScheduleJobs_Ctx_2() knuc.Ctx_ScheduleJobs_W {
 }
 
 func (_ *Ctx_M) Recv_W_ScheduleJobs_FrequencyResult(x knuc.FrequencyResult) {
-    fmt.Println("FREQ:\n\t", x)
 }
 func (_ *Ctx_M) End() {}
 
