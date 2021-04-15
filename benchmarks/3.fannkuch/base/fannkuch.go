@@ -1,4 +1,4 @@
-package fannkuch_base
+package base
 //package main
 //import "fmt"
 //func main() {

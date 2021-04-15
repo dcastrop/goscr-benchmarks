@@ -3,6 +3,7 @@ package main
 import (
     bfib "../1.boundedFib"
     prime "../2.boundedPrimeSieve"
+    fannkuch "../3.fannkuch"
 	"./benchmark"
 	"flag"
 	"fmt"
@@ -75,16 +76,16 @@ func main() {
 		idx++
 	}
 
-// 	if *runFannkuch || *runAll {
-// 		fmt.Println("Fannkuch")
-// 		scribbleResults, baseResults := FannkuchBenchmark(iterations)
-// 		PrintAvgResults(scribbleResults, baseResults)
-// 		strResults[idx] = (benchmark.ResultsToString("fannkuch-scribble", scribbleResults) + "\n;;")
-// 		idx++
-// 		strResults[idx] = (benchmark.ResultsToString("fannkuch-base", baseResults) + "\n;;")
-// 		idx++
-// 	}
-// 
+ 	if *runFannkuch || *runAll {
+ 		fmt.Println("Fannkuch")
+ 		scribbleResults, baseResults := fannkuch.FannkuchBenchmark(iterations)
+ 		PrintAvgResults(scribbleResults, baseResults)
+ 		strResults[idx] = (benchmark.ResultsToString("fannkuch-scribble", scribbleResults) + "\n;;")
+ 		idx++
+ 		strResults[idx] = (benchmark.ResultsToString("fannkuch-base", baseResults) + "\n;;")
+ 		idx++
+ 	}
+ 
  	if *runSieve || *runAll {
  		fmt.Println("Primesieve")
  		scribbleResults, baseResults := prime.PrimeSieveBenchmark(iterations)
