@@ -1,0 +1,25 @@
+(*# NestedProtocols #*)
+
+type <go> "[]int" from "builtin" as IntArr;
+
+nested protocol FannkuchRecursive(role Source, role Worker; new role NewWorker) {
+    Task(IdxMin:int, Chunksz:int, Fact:IntArr, N:int) from Worker to NewWorker;
+    choice at NewWorker {
+        NewWorker calls FannkuchRecursive(Source, NewWorker);
+        Result(MaxFlips:int, Checksum:int) from NewWorker to Source;
+    } or {
+        Result(MaxFlips:int, Checksum:int) from NewWorker to Source;
+    }
+}
+
+(*
+global protocol Fannkuch(role Main, role Worker) {
+    Task(IdxMin:int, Chunksz:int, Fact:[]int, N:int) from Main to Worker;
+    choice at Worker {
+        Worker calls FannkuchRecursive(Main, Worker);
+        Result(MaxFlips:int, Checksum:int) from Worker to Main;
+    } or {
+        Result(MaxFlips:int, Checksum:int) from Worker to Main;
+    }
+}
+*)

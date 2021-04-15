@@ -8,4 +8,6 @@ run_bench/run_bench
 1.boundedFib/goscr/goscr
 2.boundedPrimeSieve/goscr/boundedPrimeSieve
 2.boundedPrimeSieve/goscr/goscr
+3.fannkuch/goscr/fannkuch
+3.fannkuch/goscr/goscr
 
