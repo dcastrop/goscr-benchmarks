@@ -1,4 +1,10 @@
 package fannkuch_base
+//package main
+//import "fmt"
+//func main() {
+//    fmt.Println(Fannkuch(4))
+//}
+
 
 type Result struct {
 	maxFlips int
@@ -30,6 +36,8 @@ func fannkuch(n, idxMin int, ch chan Result) {
 	for i := 0; i < n; i++ {
 		p[i] = i
 	}
+
+
 	for i, idx := n-1, idxMin; i > 0; i-- {
 		d := idx / Fact[i]
 		count[i] = d
