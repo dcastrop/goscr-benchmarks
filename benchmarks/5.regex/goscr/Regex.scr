@@ -1,0 +1,14 @@
+(*# NestedProtocols #*)
+
+type <go> "[]byte" from "..." as ByteArr;
+
+nested protocol Regex(role M; new role W) {
+  choice at M {
+    Task(pattern: string, b: ByteArr) from M to W;
+    M calls Regex(M);
+    NumMatches(nmatches: int) from W to M;
+  } or {
+    CalcLength(b: ByteArr) from M to W;
+    Length(len: int) from W to M;
+  }
+}
