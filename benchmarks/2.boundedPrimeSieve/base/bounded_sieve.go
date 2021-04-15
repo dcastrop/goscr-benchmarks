@@ -1,6 +1,6 @@
-package main 
+package base
 
-import "fmt"
+// import "fmt"
 
 func FirstWorker(nChan, filterPrime <-chan int, resChan chan<- int) {
 	ubound := <-nChan
@@ -66,8 +66,8 @@ func PrimeSieve(n int) []int {
 	}
 	return primes
 }
-func main() {                                                                                                          
-    fmt.Println(PrimeSieve(100))
-}
+//func main() {                                                                                                          
+//    fmt.Println(PrimeSieve(100))
+//}
 
 

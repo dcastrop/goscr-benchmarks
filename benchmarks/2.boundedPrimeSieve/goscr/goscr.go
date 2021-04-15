@@ -1,6 +1,6 @@
-package main
+package goscr
 
-import "fmt"
+//import "fmt"
 
 import proto "./boundedPrimeSieve"
 
@@ -103,6 +103,6 @@ func PrimeSieve(n int) []int {
     return ctxM
 }
 
-func main() {
-    fmt.Println(PrimeSieve(100))
-}
+//func main() {
+//    fmt.Println(PrimeSieve(100))
+//}

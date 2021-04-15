@@ -2,6 +2,7 @@ package main
 
 import (
     bfib "../1.boundedFib"
+    prime "../2.boundedPrimeSieve"
 	"./benchmark"
 	"flag"
 	"fmt"
@@ -84,15 +85,15 @@ func main() {
 // 		idx++
 // 	}
 // 
-// 	if *runSieve || *runAll {
-// 		fmt.Println("Primesieve")
-// 		scribbleResults, baseResults := PrimeSieveBenchmark(iterations)
-// 		PrintAvgResults(scribbleResults, baseResults)
-// 		strResults[idx] = (benchmark.ResultsToString("primesieve-scribble", scribbleResults) + "\n;;")
-// 		idx++
-// 		strResults[idx] = (benchmark.ResultsToString("primesieve-base", baseResults) + "\n;;")
-// 		idx++
-// 	}
+ 	if *runSieve || *runAll {
+ 		fmt.Println("Primesieve")
+ 		scribbleResults, baseResults := prime.PrimeSieveBenchmark(iterations)
+ 		PrintAvgResults(scribbleResults, baseResults)
+ 		strResults[idx] = (benchmark.ResultsToString("primesieve-scribble", scribbleResults) + "\n;;")
+ 		idx++
+ 		strResults[idx] = (benchmark.ResultsToString("primesieve-base", baseResults) + "\n;;")
+ 		idx++
+ 	}
 // 	if *runRegexRedux || *runAll {
 // 		fmt.Println("RegexRedux")
 // 		scribbleResults, baseResults := RegexReduxBenchmark(iterations)
