@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Naming convention: <d>.<protocol> contains <d>.<protocol>/goscr/<Protocol>.scr
-BENCHMARKS="1.boundedFib 2.boundedPrimeSieve 3.fannkuch"
+BENCHMARKS="1.boundedFib 2.boundedPrimeSieve 3.fannkuch 4.knuc"
 
 pushd () {
     command pushd "$@" > /dev/null
@@ -45,7 +45,7 @@ do
     echo
     echo "* Generating code for '${SCR_FILE}'"
     GO_IMPL=${GOSCR_DIR}/${BENCHNAME}/${BENCHNAME}.go
-    rm -r ${GOSCR_DIR}/${BENCHNAME}
+    # rm -rf ${GOSCR_DIR}/${BENCHNAME}
     mkdir -p ${GOSCR_DIR}/${BENCHNAME}
     echo "package ${BENCHNAME}" > ${GO_IMPL}
     echo >> ${GO_IMPL}

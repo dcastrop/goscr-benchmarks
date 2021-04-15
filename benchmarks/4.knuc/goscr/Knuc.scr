@@ -1,0 +1,23 @@
+(*# NestedProtocols #*)
+
+nested protocol ScheduleJobs(role M; new role W) {
+    choice at M {
+        SequenceJob(sequence: string) from M to W;
+        M calls ScheduleJobs(M);
+        SequenceResult(res: string) from W to M;
+    } or {
+        FrequencyJob(len: int) from M to W;
+        M calls ScheduleJobs(M);
+        FrequencyResult(res: string) from W to M;
+    } or {
+        Finish() from M to W;
+    }
+}
+
+(* 
+global protocol KNucleotide(role Master, role Worker) {
+    SequenceJob(sequence: string, dna: ByteArr) from Master to Worker;
+    Master calls ScheduleJobs(Master);
+    SequenceResult(res: string) from Worker to Master;
+}
+*)

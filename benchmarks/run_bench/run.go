@@ -34,7 +34,7 @@ func main() {
 	minTime := flag.Int("time", 10, "Minimum number of seconds to execute the benchmark for")
 
 	// Gen inputs for benchmarks
-	// genInputs := flag.Bool("geninputs", false, "Run fasta to generate input files for benchmarks")
+	genInputs := flag.Bool("geninputs", false, "Run fasta to generate input files for benchmarks")
 
 	// Flags for benchmarks
 	runBoundedFib := flag.Bool("boundedfib", false, "Run benchmark on bounded fibonacci protocol")
@@ -57,13 +57,13 @@ func main() {
 		boolToInt(*runRegexRedux || *runAll) + boolToInt(*runSpectralNorm || *runAll) + boolToInt(*runKNucleotide || *runAll) +
 		boolToInt(*runBoundedFib || *runAll)
 	strResults := make([]string, 2*numResults)
-	// if *genInputs {
-	// 	GenKNucleotideInputs()
-	// 	fmt.Println("Generated knucleotide input files")
-	// 	GenRegexInputs()
-	// 	fmt.Println("Generated regexredux input files")
-	// 	return
-	// }
+	if *genInputs {
+		GenKNucleotideInputs()
+		fmt.Println("Generated knucleotide input files")
+		GenRegexInputs()
+		fmt.Println("Generated regexredux input files")
+		return
+	}
 	idx := 0
 
 	if *runBoundedFib || *runAll {
