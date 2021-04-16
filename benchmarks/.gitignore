@@ -1,6 +1,5 @@
 nuscr_bin
 tests
-run_bench/run_bench
 
 *.swp
 
