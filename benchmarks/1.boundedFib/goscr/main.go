@@ -1,3 +1,12 @@
+//package main
+//import (
+//    "./boundedFib"
+//    "fmt"
+//)
+//
+//func main(){
+//        fmt.Println(Fibonacci(1000000))
+//}
 package goscr
 
 import (

@@ -1,11 +1,11 @@
-//package goscr
-//import "./fannkuch"
-package main
+package goscr
 import "./fannkuch"
-import "fmt"
-func main(){
-    fmt.Println(Fannkuch(4))
-}
+//package main
+//import "./fannkuch"
+//import "fmt"
+//func main(){
+//    fmt.Println(Fannkuch(4))
+//}
 
 var (                                                                                                                  
     NCHUNKS = 720

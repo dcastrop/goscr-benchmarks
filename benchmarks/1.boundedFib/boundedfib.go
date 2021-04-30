@@ -8,7 +8,7 @@ import (
 )
 
 var boundedfibParams = []int{
-	5, 10, 15, 20, 25,
+	5, 10, 15, 20, 25, 30,
 }
 
 func TimeBoundedFibonacci(n int) time.Duration {
