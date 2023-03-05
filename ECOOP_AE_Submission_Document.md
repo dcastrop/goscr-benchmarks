@@ -34,7 +34,7 @@ Please list for each distinct component of your artifact:
 Please provide explicit references that link processes, data, or conclusions in the paper with the location of the supporting component in the artifact, e.g., 
 
   - The artifact and benchmarks are compiled using `$HOME/tool/benchmarks/scripts/generate.sh` and `$HOME/tool/benchmarks/scripts/compile_nuscr.sh`
-  - The data presented in Fig. 7 can be obtained by running `$HOME/tool/benchmarks/run_bench/run_bench` (*WARNING*: it takes several days to replicate the experiments, run it with `run_bench -iterations 1 -time 1` to obtain a quick approximation -- this will still take several hours).
+  - The data presented in Fig. 7 can be obtained by running `$HOME/tool/benchmarks/run_bench/run_bench` (*WARNING*: it takes several days to replicate the experiments, run it with `run_bench -iterations 1 -time 0` to obtain a quick approximation with just one repetition -- this will take several minutes).
   - The data in Table 1. are the protocols that are handled by our tool, and they can be found in `benchmarks/use_cases`.
 
 * “The data in table 1 can be obtained by running script ‘abc.sh’ on the data at ‘/home/anonymous/input_data.csv’”
