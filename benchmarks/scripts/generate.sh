@@ -51,7 +51,7 @@ do
     echo
     echo "* Generating code for '${SCR_FILE}'"
     GO_IMPL=${GOSCR_DIR}/${BENCHNAME}/${BENCHNAME}.go
-    # rm -rf ${GOSCR_DIR}/${BENCHNAME}
+    rm -rf ${GOSCR_DIR}/${BENCHNAME}
     mkdir -p ${GOSCR_DIR}/${BENCHNAME}
     echo "package ${BENCHNAME}" > ${GO_IMPL}
     echo >> ${GO_IMPL}
