@@ -1,0 +1,61 @@
+(*# NestedProtocols #*)
+
+type <go> "[]int" from "builtin" as Board;
+type <go> "int" from "builtin" as Player;
+
+nested protocol StandardStrategy(role P) {}
+
+nested protocol MinMaxStrategy(role Master; new role Worker) {
+  nested protocol EvalBoard(role W) {}
+
+  choice at Master {
+    CurrState(board: Board, currPlayer: Player, toMove:Player) from Master to Worker;
+    Master calls MinMaxStrategy(Master);
+    choice at Worker {
+      Worker calls MinMaxStrategy(Worker);
+      Score(score:int) from Worker to Master;
+    } or {
+      Worker calls EvalBoard(Worker);
+      Score(score:int) from Worker to Master;
+    }
+  } or {
+    FinalState(board: Board, currPlayer: Player, toMove:Player) from Master to Worker;
+    choice at Worker {
+      Worker calls MinMaxStrategy(Worker);
+      Score(score:int) from Worker to Master;
+    } or {
+      Worker calls EvalBoard(Worker);
+      Score(score:int) from Worker to Master;
+    }
+  }
+}
+
+nested protocol CalcMove(role P) {
+  choice at P {
+    P calls StandardStrategy(P);
+  } or {
+    P calls MinMaxStrategy(P);
+  }
+}
+
+global protocol NoughtsAndCrosses(role P1, role P2) {
+  rec P1MOVE {
+    P1 calls CalcMove(P1);
+    choice at P1 {
+      Win(move:int) from P1 to P2;
+    } or {
+      Draw(move:int) from P1 to P2;
+    } or {
+      Move(move:int) from P1 to P2;
+      P2 calls CalcMove(P2);
+      choice at P2 {
+        Win(move:int) from P2 to P1;
+      } or {
+        Draw(move:int) from P2 to P1;
+      } or {
+        Move(move:int) from P2 to P1;
+        continue P1MOVE;
+      }
+    }
+  }
+}

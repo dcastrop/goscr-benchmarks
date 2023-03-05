@@ -1,0 +1,51 @@
+(*# NestedProtocols #*)
+
+nested protocol Cached(role res) {}
+
+nested protocol IterDNSLookup(role res; new role dns) {
+  IterReq(host: string) from res to dns;
+  choice at dns {
+    IP(ip: string) from dns to res;
+  } or {
+    DNSIP(ip: string) from dns to res;
+    res calls IterDNSLookup(res);
+  }
+}
+
+
+nested protocol RecDNSLookup(role res; new role dns) {
+  RecReq(host: string) from res to dns;
+  choice at dns {
+    dns calls RecDNSLookup(dns);
+    IP(ip: string) from dns to res;
+  } or {
+    dns calls IterDNSLookup(dns);
+    IP(ip: string) from dns to res;
+  } or {
+    dns calls Cached(dns);
+    IP(ip: string) from dns to res;
+  }
+}
+
+global protocol GeneralDNS(role app, role dnsRes) {
+  rec REC {
+    choice at app {
+      Done() from app to dnsRes;
+    } or {
+      Query(host: string) from app to dnsRes;
+      choice at dnsRes {
+        dnsRes calls RecDNSLookup(dnsRes);
+        IP(ip: string) from dnsRes to app;
+        continue REC;
+      } or {
+        dnsRes calls IterDNSLookup(dnsRes);
+        IP(ip: string) from dnsRes to app;
+        continue REC;
+      } or {
+        dnsRes calls Cached(dnsRes);
+        IP(ip: string) from dnsRes to app;
+        continue REC;
+      }
+    }
+  }
+}
