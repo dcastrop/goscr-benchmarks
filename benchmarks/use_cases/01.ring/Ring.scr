@@ -1,5 +1,3 @@
-module ring;
-
 (*# NestedProtocols #*)
 
 nested protocol Forward(role S, role E; new role RingNode) {

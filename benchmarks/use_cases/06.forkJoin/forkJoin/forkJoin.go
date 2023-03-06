@@ -1,0 +1,5 @@
+package forkJoin
+
+import "sync"
+
+
