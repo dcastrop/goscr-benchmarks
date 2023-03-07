@@ -1,0 +1,6 @@
+(*# NestedProtocols #*)
+
+nested protocol Pipe (role M; new role W) {
+    Next(int) from M to W;
+    W calls Pipe(W);
+}
