@@ -1,5 +1,3 @@
 package pipeline
 
 import "sync"
-
-

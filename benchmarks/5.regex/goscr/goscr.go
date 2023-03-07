@@ -1,7 +1,7 @@
 package goscr
 
 import (
-    "./regex"
+	"./regex"
 	"github.com/GRbit/go-pcre"
 )
 
@@ -44,48 +44,48 @@ func countMatches(pat string, b []byte) int {
 }
 
 type Ctx_W int
+
 func (ctx *Ctx_W) Recv_M_Regex_Task(v_2 regex.Task) {
-    *ctx = Ctx_W(countMatches(v_2.Pattern, v_2.B))
+	*ctx = Ctx_W(countMatches(v_2.Pattern, v_2.B))
 }
 func (ctx *Ctx_W) Send_M_Regex_NumMatches() regex.NumMatches {
-    return regex.NumMatches(*ctx)
+	return regex.NumMatches(*ctx)
 }
 func (ctx *Ctx_W) Recv_M_Regex_CalcLength(b regex.CalcLength) {
-		for i := 0; i < len(substs); i++ {
-			b = pcre.
-				MustCompileJIT(substs[i].pattern, 0, pcre.STUDY_JIT_COMPILE).
-				ReplaceAll(b, []byte(substs[i].replacement), 0)
-		}
-        *ctx = Ctx_W(len(b))
+	for i := 0; i < len(substs); i++ {
+		b = pcre.
+			MustCompileJIT(substs[i].pattern, 0, pcre.STUDY_JIT_COMPILE).
+			ReplaceAll(b, []byte(substs[i].replacement), 0)
+	}
+	*ctx = Ctx_W(len(b))
 }
 func (ctx *Ctx_W) Send_M_Regex_Length() regex.Length {
-    return regex.Length(*ctx)
+	return regex.Length(*ctx)
 }
-func (_ *Ctx_W) End() { }
-
+func (_ *Ctx_W) End() {}
 
 type Ctx_M struct {
-    idx int
-    b []byte
+	idx int
+	b   []byte
 }
+
 func (ctx *Ctx_M) Choice_M_Regex_() regex.Select_M {
-    if (*ctx).idx >= len(variants) {
-        return regex.CalcLength((*ctx).b)
-    }
-    n := (*ctx).idx
-    (*ctx).idx++
-    return regex.Task{(*ctx).b, variants[n]}
+	if (*ctx).idx >= len(variants) {
+		return regex.CalcLength((*ctx).b)
+	}
+	n := (*ctx).idx
+	(*ctx).idx++
+	return regex.Task{(*ctx).b, variants[n]}
 }
 func (_ *Ctx_M) Init_W_Regex_Ctx() regex.Ctx_Regex_W {
-    n := Ctx_W(0)
-    return &n
+	n := Ctx_W(0)
+	return &n
 }
 func (_ *Ctx_M) Recv_W_Regex_NumMatches(x_3 regex.NumMatches) {
 }
 func (_ *Ctx_M) Recv_W_Regex_Length(x_4 regex.Length) {
 }
 func (_ *Ctx_M) End() {}
-
 
 func RegexRedux(b []byte) {
 	// runtime.GOMAXPROCS(runtime.NumCPU())
@@ -97,10 +97,10 @@ func RegexRedux(b []byte) {
 	b = pcre.
 		MustCompileJIT("(>[^\n]*)?\n", 0, pcre.STUDY_JIT_COMPILE).
 		ReplaceAll(b, []byte{}, 0)
-	// TODO:Uncomment
-	// clen := len(b)
-    ctx_M := Ctx_M{0, b}
-    ctx_W := Ctx_W(0)
+		// TODO:Uncomment
+		// clen := len(b)
+	ctx_M := Ctx_M{0, b}
+	ctx_W := Ctx_W(0)
 
-    regex.Start(&ctx_M, &ctx_W)
+	regex.Start(&ctx_M, &ctx_W)
 }

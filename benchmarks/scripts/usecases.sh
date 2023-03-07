@@ -11,7 +11,7 @@ BENCHMARKS="01.ring \
             09.unboundedFib \
             15.taskGen \
             16.dns \
-            17.min-max"
+            17.minmax"
 
 # Ignoring benchmarks
 # 08.boundedFib -> ../1.boundedFib
@@ -71,6 +71,10 @@ do
     echo >> ${GO_IMPL}
     echo >> ${GO_IMPL}
     ${NUSCR_BIN} ${SCR_FILE} --gencode-go=${GOSCR_DIR}/${bench} >> ${GO_IMPL}
+    pushd ${GOSCR_DIR}/${BENCHNAME}
+    go fmt
+    popd
+    popd
 done
 
 echo "* All Done"

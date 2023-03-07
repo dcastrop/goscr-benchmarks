@@ -1,20 +1,22 @@
 (*# NestedProtocols #*)
 
-nested protocol Forward(role S, role E; new role RingNode) {
-    msg(msg:string, hops:int) from S to RingNode;
-    choice at RingNode {
-        RingNode calls Forward(RingNode, E);
-    } or {
-        msg(msg:string, hops:int) from RingNode to E;
-    }
+nested protocol Ring (role P, role Q; new role R) {
+  rec X {
+    Next(int) from Q to R;
+    continue X with {
+      Last(int) from R to P;
+      R calls Ring(P, R);
+    };
+  }
 }
 
-global protocol Ring(role Start, role End) {
-    choice at Start {
-        Start calls Forward(Start, End);
-        msg(msg:string, hops:int) from End to Start;
-    } or {
-        msg(msg:string, hops:int) from Start to End;
-        msg(msg:string, hops:int) from End to Start;
-    }
+global protocol Main (role P, role Q) {
+  rec X {
+    Next(int) from P to Q;
+    continue X with {
+      Last(int) from Q to P;
+      Q calls Ring(P, Q);
+    };
+  }
 }
+  

@@ -59,6 +59,10 @@ do
     echo >> ${GO_IMPL}
     echo >> ${GO_IMPL}
     ${NUSCR_BIN} ${SCR_FILE} --gencode-go=${GOSCR_DIR}/${bench} >> ${GO_IMPL}
+    pushd ${GOSCR_DIR}/${BENCHNAME}
+    go fmt
+    popd
+    popd
 done
 
 echo "* All Done"

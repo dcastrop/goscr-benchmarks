@@ -1,5 +1,3 @@
 package recTree
 
 import "sync"
-
-

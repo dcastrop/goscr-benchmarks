@@ -1,7 +1,7 @@
 package goscr
 
 import (
-    "./knuc"
+	"./knuc"
 	"bufio"
 	"bytes"
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 // package main
-// 
+//
 // import (
 //     "./knuc"
 // 	"bufio"
@@ -19,22 +19,22 @@ import (
 // 	"sort"
 //     "io/ioutil"
 // )
-// func readFile(file string) []byte {                                                                                    
+// func readFile(file string) []byte {
 //     f, err := os.Open(fmt.Sprintf("./data/%s", file))
 //     if err != nil {
 //         panic("Can't open input file")
-//     } 
+//     }
 //     b, err := ioutil.ReadAll(f)
 //     if err != nil {
 //         panic("Can't read input file")
-//     } 
+//     }
 //     err = f.Close()
 //     if err != nil {
 //         panic("Can't close input file")
-//     } 
+//     }
 //     return b
-// }     
-// 
+// }
+//
 // func main(){
 //     b := readFile("knucleotide-input5000000.txt")
 //     s := seqChars(readSequence(">THREE", b))
@@ -137,43 +137,42 @@ func (dna seqBits) count64(length int) map[seq64]*counter {
 }
 
 func readSequence(prefix string, input []byte) (data []byte) {
-    in, lineCount := findSequence(prefix, input)
-    data = make([]byte, 0, lineCount*61)
-    for {            
-        line, err := in.ReadSlice('\n') 
-        if len(line) <= 1 || line[0] == '>' {
-            break
-        }
-                     
-        last := len(line) - 1    
-        if line[last] == '\n' {  
-            line = line[0:last]  
-        }            
-        data = append(data, line...)
-                     
-        if err != nil {
-            break    
-        }
-    } 
-    return           
-}                    
+	in, lineCount := findSequence(prefix, input)
+	data = make([]byte, 0, lineCount*61)
+	for {
+		line, err := in.ReadSlice('\n')
+		if len(line) <= 1 || line[0] == '>' {
+			break
+		}
 
-func findSequence(prefix string, input []byte) (in *bufio.Reader, lineCount int) {
-    pfx := []byte(prefix)
-    in = bufio.NewReader(bytes.NewReader(input))
-    for {
-        line, err := in.ReadSlice('\n')
-        if err != nil {
-            panic("read error")
-        }
-        lineCount++  
-        if line[0] == '>' && bytes.HasPrefix(line, pfx) {
-            break
-        }
-    }    
-    return
+		last := len(line) - 1
+		if line[last] == '\n' {
+			line = line[0:last]
+		}
+		data = append(data, line...)
+
+		if err != nil {
+			break
+		}
+	}
+	return
 }
 
+func findSequence(prefix string, input []byte) (in *bufio.Reader, lineCount int) {
+	pfx := []byte(prefix)
+	in = bufio.NewReader(bytes.NewReader(input))
+	for {
+		line, err := in.ReadSlice('\n')
+		if err != nil {
+			panic("read error")
+		}
+		lineCount++
+		if line[0] == '>' && bytes.HasPrefix(line, pfx) {
+			break
+		}
+	}
+	return
+}
 
 type seqCount struct {
 	seq   seqString
@@ -235,47 +234,48 @@ func sequenceReport(dna seqBits, sequence seqString) string {
 }
 
 type Ctx_W struct {
-    result string
-    dna seqBits
+	result string
+	dna    seqBits
 }
 
 func (ctx *Ctx_W) Recv_M_ScheduleJobs_SequenceJob(v_2 knuc.SequenceJob) {
-    (*ctx).result = sequenceReport((*ctx).dna, seqString(v_2))
+	(*ctx).result = sequenceReport((*ctx).dna, seqString(v_2))
 }
 func (ctx *Ctx_W) Send_M_ScheduleJobs_SequenceResult() knuc.SequenceResult {
-    return knuc.SequenceResult((*ctx).result)
+	return knuc.SequenceResult((*ctx).result)
 }
 func (ctx *Ctx_W) Recv_M_ScheduleJobs_FrequencyJob(v_2 knuc.FrequencyJob) {
-    (*ctx).result = frequencyReport((*ctx).dna, int(v_2))
+	(*ctx).result = frequencyReport((*ctx).dna, int(v_2))
 }
 func (ctx *Ctx_W) Send_M_ScheduleJobs_FrequencyResult() knuc.FrequencyResult {
-    return knuc.FrequencyResult((*ctx).result)
+	return knuc.FrequencyResult((*ctx).result)
 }
-func (_ *Ctx_W) Recv_M_ScheduleJobs_Finish(_ knuc.Finish) { }
-func (_ *Ctx_W) End () { }
+func (_ *Ctx_W) Recv_M_ScheduleJobs_Finish(_ knuc.Finish) {}
+func (_ *Ctx_W) End()                                     {}
 
 type Ctx_M struct {
-    dna seqBits
-    jobn int
+	dna  seqBits
+	jobn int
 }
+
 func (ctx *Ctx_M) Choice_M_ScheduleJobs_() knuc.Select_M {
-    if (*ctx).jobn >= len(jobs) {
-        return knuc.Finish{}
-    }
-    n := (*ctx).jobn
-    (*ctx).jobn++
-    return jobs[n]
-    
+	if (*ctx).jobn >= len(jobs) {
+		return knuc.Finish{}
+	}
+	n := (*ctx).jobn
+	(*ctx).jobn++
+	return jobs[n]
+
 }
 func (ctx *Ctx_M) Init_W_ScheduleJobs_Ctx() knuc.Ctx_ScheduleJobs_W {
-    x := Ctx_W{"", (*ctx).dna}
-    return &x
+	x := Ctx_W{"", (*ctx).dna}
+	return &x
 }
 func (_ *Ctx_M) Recv_W_ScheduleJobs_SequenceResult(x knuc.SequenceResult) {
 }
 func (ctx *Ctx_M) Init_W_ScheduleJobs_Ctx_2() knuc.Ctx_ScheduleJobs_W {
-    x := Ctx_W{"", (*ctx).dna}
-    return &x
+	x := Ctx_W{"", (*ctx).dna}
+	return &x
 }
 
 func (_ *Ctx_M) Recv_W_ScheduleJobs_FrequencyResult(x knuc.FrequencyResult) {
@@ -293,7 +293,7 @@ var jobs = [...]knuc.Select_M{
 }
 
 func KNucleotide(dna seqBits) {
-    x := Ctx_M{dna, 0}
-    y := Ctx_W{"", dna}
-    knuc.Start(&x, &y)
+	x := Ctx_M{dna, 0}
+	y := Ctx_W{"", dna}
+	knuc.Start(&x, &y)
 }
