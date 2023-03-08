@@ -66,7 +66,8 @@ In case you would like to publish your artifact under different conditions, plea
 
 Please list any specific hardware or software requirements for accessing your artifact.
 * No specific hardware requirements, but to replicate our benchmarking results we recommend the use of a 4-core machine.
-* Software requirements:
+* Docker
+* Alternatively, these are the full software requirements to run the artifact manually:
     - OCaml 5.0.0
     - opam 2.0.5
     - The library dependencies in `${HOME}/tool/nuscr/dune-project`:
@@ -86,4 +87,14 @@ Please list any specific hardware or software requirements for accessing your ar
 
 ## Getting Started
 
-You can find the getting started guide in the Docker image at [TODO:link]().
+You can find the getting started guide in the README.md provided with the Docker image at [TODO:link](). Download the file as `dumst.tar.gz` and run:
+```
+gunzip -c dumst.tar.gz | docker load
+docker run -it dumst --rm
+```
+Note that depending on your Docker installation, you may need to run the commands as `root` with `sudo`:
+```
+gunzip -c dumst.tar.gz | sudo docker load
+sudo docker run -it dumst --rm
+```
+Upon running the container, a short overview will be printed on the console directing you to the appropriate README.md with the _Getting Started_ guide.
