@@ -65,7 +65,36 @@ script, and follow the step-by-step guide.
 #### Docker Manual Instructions
 
 The Docker image contains all the necessary dependencies to run our tool on the
-benchmarks. To reproduce the benchmark results, follow these steps:
+benchmarks. To reproduce the benchmark results, you can simply use our 
+scripts under `dumst/benchmarks/scripts`:
+
+```
+cd dumst/benchmarks/scripts
+./clean.sh && ./compile_nuscr.sh && ./generate.sh
+cd ../run_bench
+go build
+```
+This will compile our Go code for running all of the benchmarks. Simply run
+```
+./run_bench -all
+```
+**WARNING**: This will take >1 day to run. To get a quick approximation, run:
+```
+cd ../../run_bench
+go build
+./run_bench -all -time 0 -iterations 1
+```
+The data will be written to:
+```
+benchmark-results.txt
+benchmark-results1000.txt
+...
+```
+Finally, inside `dumst/benchmarks/run_bench/measurements/`, you will find the
+benchmarking results that we report in the paper.
+
+**Explanation of the scripts**: The scripts under `dumst/benchmarks/scripts`
+are running the following steps:
 
 1. Navigate to directory `dumst/nuscr`:
 ```
