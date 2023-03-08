@@ -1,0 +1,12 @@
+(*# NestedProtocols #*)
+
+nested protocol ForkJoin(role S; new role W) { 
+  rec REPEAT {
+    choice at S {
+      SubTask(req: int) from S to W;
+      continue REPEAT with { W calls ForkJoin(W); };
+    } or {
+      Task(req: string) from S to W;
+    }
+  }
+}

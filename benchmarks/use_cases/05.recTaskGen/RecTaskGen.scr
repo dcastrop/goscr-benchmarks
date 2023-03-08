@@ -1,0 +1,15 @@
+(*# NestedProtocols #*)
+
+nested protocol DynTaskGen(role S; new role W) {
+  rec LOOP {
+    choice at S {
+      Req(req: string) from S to W;
+      Resp(resp: string) from W to S;
+      continue LOOP with { 
+        W calls DynTaskGen(W);
+      };
+    } or {
+      LastReq(req: string) from S to W;
+    }
+  }
+}

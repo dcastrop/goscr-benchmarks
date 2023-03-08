@@ -1,0 +1,13 @@
+(*# NestedProtocols #*)
+
+nested protocol Tree (role M; new role W1, role W2) {
+  rec X {
+    Next(int) from M to W1;
+    Next(int) from M to W2;
+    continue X with {
+      W1 calls Tree(W1);
+    }{
+      W2 calls Tree(W2);
+    };
+  }
+}

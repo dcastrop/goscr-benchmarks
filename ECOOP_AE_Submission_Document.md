@@ -58,7 +58,7 @@ You do not need to answer any of the following questions in this case.
 
 In case you would like to publish your artifact under different conditions, please provide the following information.
 
-* On which platform will the artifact be made publicly available? Zenodo
+* On which platform will the artifact be made publicly available? DARTS
 * Please provide a link to the platform’s retention policy (not required for DARTS, Zenodo, FigShare).
 * Under which license will the artifact be published? GPLv3
 

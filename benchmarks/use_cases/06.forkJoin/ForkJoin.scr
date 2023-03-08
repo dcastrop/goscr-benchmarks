@@ -1,0 +1,10 @@
+(*# NestedProtocols #*)
+
+nested protocol ForkJoin(role S; new role W) {
+  choice at S {
+    SubTask(req: int) from S to W;
+    S calls ForkJoin(S);
+  } or {
+    Task(req: string) from S to W;
+  }
+}
