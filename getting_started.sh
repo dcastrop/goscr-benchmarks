@@ -243,6 +243,7 @@ generate all our GoScr code: 'generate.sh' "
     display
     display
     display "* To run all our benchmarks simply run 'go build' followed by './run_bench -all'"
+    go build
     display
     display "${ALERT}WARNING${ENDSTYLE}: this script will NOT run this command, as it will take > 24 hours to complete!"
     display
@@ -256,9 +257,10 @@ to get a quick approximation."
     display "* At the end of the execution, you will observe a number of \"*.txt\" files under '${PWD}' that \
 contain the execution times. This is the data that we plotted in Fig 7 on page 20."
     display
-    display "############ END OF THE GETTING STARTED GUIDE."
+    display "############ END OF THE GETTING STARTED GUIDE"
     display "########################################################################"
     display
+    sleep 3
     display "${UNDERLINE}[Press enter to continue executing the benchmarks, and CTRL+C to cancel]${ENDSTYLE}"
     read
     ./run_bench -all -time 0 -iterations 1
