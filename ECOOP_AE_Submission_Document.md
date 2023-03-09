@@ -17,7 +17,7 @@ Please list for each distinct component of your artifact:
   [TODO:link]()
 
 * Which badges do you claim for your artifact?  
-  _Reusable and available (doi: )_
+  _Reusable and available_
 
 ## For authors claiming a functional or reusable badge: What are claims about the artifact’s functionality to be evaluated by the committee?
 
@@ -90,11 +90,11 @@ Please list any specific hardware or software requirements for accessing your ar
 You can find the getting started guide in the README.md provided with the Docker image at [TODO:link](). Download the file as `dumst.tar.gz` and run:
 ```
 gunzip -c dumst.tar.gz | docker load
-docker run -it dumst --rm
+docker run -it --rm dumst
 ```
 Note that depending on your Docker installation, you may need to run the commands as `root` with `sudo`:
 ```
 gunzip -c dumst.tar.gz | sudo docker load
-sudo docker run -it dumst --rm
+sudo docker run -it --rm dumst
 ```
 Upon running the container, a short overview will be printed on the console directing you to the appropriate README.md with the _Getting Started_ guide.
