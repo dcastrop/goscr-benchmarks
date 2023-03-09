@@ -253,7 +253,7 @@ to get a quick approximation."
     display
     display "${ALERT}WARNING${ENDSTYLE}: this will still take several minutes! (5-10 min). Press CTRL+C to cancel."
     display
-    display "* At the end of the execution, you will observe a number of \"*.txt\" files under '${PWD}/run_bench' that \
+    display "* At the end of the execution, you will observe a number of \"*.txt\" files under '${PWD}' that \
 contain the execution times. This is the data that we plotted in Fig 7 on page 20."
     display
     display "############ END OF THE GETTING STARTED GUIDE."
