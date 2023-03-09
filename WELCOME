@@ -1,12 +1,1 @@
-Welcome to the Docker container with the artifact for paper 21:
-
-  **Dynamically Updatable Multiparty Session Protocols**
-
-Here, you will find our tool for producing Go implementations from protocol
-specifications, as well as the bechmarks that we used in our paper. 
-
-You will find the **Getting Started** guide in directory:
-
-```
-${PWD}/README.md
-```
+Welcome to the Docker container with the artifact for paper 21:\n\n\t\e[1;32mDynamically Updatable Multiparty Session Protocols\e[0m\n\nHere, you will find our tool for producing Go implementations from protocol specifications, as well as the benchmarks that we used in our paper.\n\nYou can find the \e[1;4mGetting Started\e[0m guide in file \e[1;4;34mREADME.md\e[0m in the current directory.

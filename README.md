@@ -14,13 +14,13 @@ generate the code and compile the benchmarks, please use the scripts in
 
 Download the Docker image as `dumst.tar.gz`, and run the following commands:
 ```
-gunzip -c /tmp/dumst.tar.gz | docker load
+docker load < dumst.tar.gz
 docker run -it dumst --rm
 ```
 Note that depending on your Docker installation, you may need to run the
 commands as `root` with `sudo`:
 ```
-gunzip -c dumst.tar.gz | sudo docker load
+sudo docker load < dumst.tar.gz
 sudo docker run -it dumst --rm
 ```
 Upon running the container, a short overview will be printed on the console
@@ -42,12 +42,14 @@ and **Manual**.
 
 The directory structure of the artifact is as follows:
 
+```
 dumst
 |-- benchmarks                          # Benchmarks & use cases in the paper
 |-- ECOOP_AE_Submission_Document.md     # The submission template
 |-- getting_started.sh                  # Automated getting-started script
 |-- nuscr                               # Code of the GoScr tool
 `-- README.md                           # This file
+```
 
 You can find the full layout at the end of this file.
 
@@ -65,46 +67,51 @@ script, and follow the step-by-step guide.
 #### Docker Manual Instructions
 
 The Docker image contains all the necessary dependencies to run our tool on the
-benchmarks. To reproduce the benchmark results, you can simply use our 
-scripts under `dumst/benchmarks/scripts`:
+benchmarks. The working directory of the docker container is:
+```
+${HOME}/dumst
+```
+To reproduce the benchmark results, you can simply use our scripts under
+`${HOME}/dumst/benchmarks/scripts`:
 
 ```
-cd dumst/benchmarks/scripts
+cd benchmarks/scripts
 ./clean.sh && ./compile_nuscr.sh && ./generate.sh
+```
+Change the current working directory to:
+```
 cd ../run_bench
+```
+The following will compile and run all of our benchmarks:
+```
 go build
-```
-This will compile our Go code for running all of the benchmarks. Simply run
-```
 ./run_bench -all
 ```
 **WARNING**: This will take >1 day to run. To get a quick approximation, run:
 ```
-cd ../../run_bench
-go build
 ./run_bench -all -time 0 -iterations 1
 ```
-The data will be written to:
+The data will be written as plain text files in the current working directory:
 ```
 benchmark-results.txt
 benchmark-results1000.txt
 ...
 ```
-Finally, inside `dumst/benchmarks/run_bench/measurements/`, you will find the
-benchmarking results that we report in the paper.
+Finally, inside `${HOME}dumst/benchmarks/run_bench/measurements/`, you will
+find the benchmarking results that we report in the paper.
 
-**Explanation of the scripts**: The scripts under `dumst/benchmarks/scripts`
-are running the following steps:
+**Explanation of the scripts**: The scripts under
+`${HOME}/dumst/benchmarks/scripts` are running the following steps:
 
-1. Navigate to directory `dumst/nuscr`:
+1. Navigate to directory `${HOME}/dumst/nuscr`:
 ```
-cd dumst/nuscr
+cd ./nuscr
 ```
 
 2. Compile and install GoScr:
 ```
-dune build
-TARGET=$(cd ../benchmarks/nuscr_bin; pwd) dune install --relocatable --prefix=${TARGET}
+dune build -p nuscr
+TARGET=$(cd ../benchmarks/nuscr_bin; pwd) dune install nuscr --relocatable --prefix=${TARGET}
 ```
 The `TARGET=...` is needed because `dune install` does not accept relative
 paths outside of the project workspace.
@@ -114,7 +121,7 @@ paths outside of the project workspace.
 TARGET=$(cd ../benchmarks/nuscr_bin; pwd); export PATH="${TARGET}/bin:${PATH}"
 ```
 
-4. Navigate to `dumst/benchmarks`:
+4. Navigate to `${HOME}/dumst/benchmarks`:
 ```
 cd ../benchmarks
 ```
@@ -170,8 +177,6 @@ go build
 ```
 **WARNING**: This will take >1 day to run. To get a quick approximation, run:
 ```
-cd ../../run_bench
-go build
 ./run_bench -all -time 0 -iterations 1
 ```
 The data will be written to:
@@ -204,6 +209,12 @@ Run the following commands to install all the necessary OCaml dependencies:
 opam pin add --no-action -y nuscr.dev -k path .
 opam pin add --no-action -y nuscr-web.dev -k path .
 opam install -dt ./nuscr.opam --deps-only
+```
+
+Additionally, you will need one library for one of our benchmarks
+```
+sudo apt-get install libpcre3-dev
+go get github.com/GRbit/go-pcre
 ```
 
 Thereafter, all the necessary dependencies would be installed, and you

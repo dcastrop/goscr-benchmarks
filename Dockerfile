@@ -36,7 +36,8 @@ RUN cp ${HOME}/.bashrc ${HOME}/artifact \
   && echo "export GOROOT=$HOME/.go/go" >> ${HOME}/artifact/.bashrc \
   && echo "export GOPATH=$HOME/dumst/.gopath" >> ${HOME}/artifact/.bashrc \
   && echo 'eval $(opam env)' >> ${HOME}/artifact/.bashrc \
-  && echo "cat ${HOME}/dumst/WELCOME" >> ${HOME}/artifact/.bashrc
+  && WELCOME_MSG=$(cat ${HOME}/artifact/dumst/WELCOME) \
+  && echo "echo -e \"${WELCOME_MSG}\" | fold -w 80 -s" >> ${HOME}/artifact/.bashrc
 
 FROM ocaml/opam:ubuntu
 
@@ -45,6 +46,7 @@ RUN sudo apt-get update \
   && sudo apt-get install vim -y \
   && sudo apt-get install tree -y \ 
   && sudo apt-get install libpcre3-dev -y \
+  && rm -f ${HOME}/dumst/WELCOME \
   && sudo rm -rf ${HOME}/opam-repository \
   && sudo rm -rf /var/lib/apt/lists/* /tmp/*
 
