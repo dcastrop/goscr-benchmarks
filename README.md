@@ -131,9 +131,9 @@ dumst
 `-- benchmarks
     |   |-- boundedfib.go      ## Code for benchmarking 
     |   |-- goscr              
-    |   |   |-- boundedFib     ## Directory for generated code
-    |   |   |-- BoundedFib.scr ## Protocol specification
-    |   |   `-- main.go        ## GoScr code: callback instantiation
+    |   |   |-- boundedFib     ## Directory for generated code
+    |   |   |-- BoundedFib.scr ## Protocol specification
+    |   |   `-- main.go        ## GoScr code: callback instantiation
     |   `-- base               ## Base Go implementation
     |-- [...]
     |-- 7.quicksort
