@@ -33,6 +33,6 @@ WORKDIR $HOME/dumst
 
 RUN echo "export PATH=$HOME/.go/go/bin:${PATH}" >> ${HOME}/.bashrc \
   && echo "export GOROOT=$HOME/.go/go" >> ${HOME}/.bashrc \
-  && echo "export GOPATH=$HOME/dumst/gopath" >> ${HOME}/.bashrc \
+  && echo "export GOPATH=$HOME/dumst/.gopath" >> ${HOME}/.bashrc \
   && echo 'eval $(opam env)' >> ${HOME}/.bashrc \
   && echo "cat ${HOME}/dumst/WELCOME" >> ${HOME}/.bashrc
