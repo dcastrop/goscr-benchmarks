@@ -13,3 +13,4 @@ dumst.tar.gz
 **/.circleci
 **/.mergify
 benchmarks/run_bench/run_bench
+benchmarks/nuscr_bin

@@ -14,7 +14,7 @@ Please list for each distinct component of your artifact:
   Docker image with source code and protocol specification examples
 
 * can be found in which location:
-  [URL](https://mega.nz/file/uiAwyLab#fv6MtCHjWoMWMBd90jqcNkiIus8vOsYFSWbClXX-OXU)
+  [URL](https://mega.nz/folder/zjwy0R7C#I0I53uyJlL9GAbwXwOEhBA)
 
 * Which badges do you claim for your artifact?  
   _Reusable and available_
@@ -87,7 +87,7 @@ Please list any specific hardware or software requirements for accessing your ar
 
 ## Getting Started
 
-You can find the getting started guide in the README.md provided with the Docker image at [URL](https://mega.nz/file/uiAwyLab#fv6MtCHjWoMWMBd90jqcNkiIus8vOsYFSWbClXX-OXU). Download the file as `dumst.tar.gz` and run:
+You can find the getting started guide in the README.md provided with the Docker image at   [URL](https://mega.nz/folder/zjwy0R7C#I0I53uyJlL9GAbwXwOEhBA). Download the file as `dumst.tar.gz` and run:
 ```
 docker load < dumst.tar.gz
 docker run -it --rm dumst
