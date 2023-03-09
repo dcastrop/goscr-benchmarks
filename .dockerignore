@@ -12,3 +12,4 @@ dumst.tar.gz
 **/.merlin
 **/.circleci
 **/.mergify
+benchmarks/run_bench/run_bench
