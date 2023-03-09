@@ -25,6 +25,6 @@ NUSCR_BIN_DIR=${BENCH_DIR}/nuscr_bin
 mkdir -p ${NUSCR_BIN_DIR}
 
 pushd ${NUSCR_ROOT}
-dune build 
-dune install --relocatable --prefix=${NUSCR_BIN_DIR}
+dune build -p nuscr
+dune install nuscr --relocatable --prefix=${NUSCR_BIN_DIR}
 popd

@@ -74,14 +74,14 @@ pushd ${PWD}/nuscr
   sleep 2
   echo -e "* Command to build our tool:"
   echo -e
-  echo -e "$ dune build"
+  echo -e "$ dune build -p nuscr"
   echo -e
 
   sleep 2
   TARGET=$(cd ../benchmarks/nuscr_bin; pwd)
   echo -e "* Command to install our tool in '${TARGET}':"
   echo -e
-  echo -e "$ dune install --relocatable --prefix=${TARGET}"
+  echo -e "$ dune install nuscr --relocatable --prefix=${TARGET}"
   echo -e
   echo -e "${RED}IMPORTANT${ENDSTYLE}: if you change the target directory\
 '--prefix', and it is outside the current working directory, you must specify\
