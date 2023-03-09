@@ -1,3 +1,13 @@
+.dockerignore
+**/.git*
 ./Dockerfile
 *.swp
 *.git
+# emacs files
+*~
+
+nuscr/*.install
+nuscr/_build/
+nuscr/.merlin
+nuscr/.circleci
+nuscr/.mergify
