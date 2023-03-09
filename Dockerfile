@@ -24,7 +24,7 @@ RUN eval $(opam config env) \
   && dune build -p nuscr\
   && dune install nuscr
 
-RUN mkdir ${HOME}/.go && mkdir ${HOME}/.go/gopath
+RUN mkdir ${HOME}/.go 
 WORKDIR $HOME/.go
 RUN wget https://go.dev/dl/go1.15.2.linux-amd64.tar.gz \
   && tar -xzf go1.15.2.linux-amd64.tar.gz
@@ -33,6 +33,6 @@ WORKDIR $HOME/dumst
 
 RUN echo "export PATH=$HOME/.go/go/bin:${PATH}" >> ${HOME}/.bashrc \
   && echo "export GOROOT=$HOME/.go/go" >> ${HOME}/.bashrc \
-  && echo "export GOPATH=$HOME/.go/gopath" >> ${HOME}/.bashrc \
+  && echo "export GOPATH=$HOME/dumst/gopath" >> ${HOME}/.bashrc \
   && echo 'eval $(opam env)' >> ${HOME}/.bashrc \
   && echo "cat ${HOME}/dumst/WELCOME" >> ${HOME}/.bashrc
