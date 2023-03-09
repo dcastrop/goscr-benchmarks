@@ -43,11 +43,11 @@ and **Manual**.
 The directory structure of the artifact is as follows:
 
 dumst
-├── benchmarks                          # Benchmarks & use cases in the paper
-├── ECOOP_AE_Submission_Document.md     # The submission template
-├── getting_started.sh                  # Automated getting-started script
-├── nuscr                               # Code of the GoScr tool
-└── README.md                           # This file
+|-- benchmarks                          # Benchmarks & use cases in the paper
+|-- ECOOP_AE_Submission_Document.md     # The submission template
+|-- getting_started.sh                  # Automated getting-started script
+|-- nuscr                               # Code of the GoScr tool
+`-- README.md                           # This file
 
 You can find the full layout at the end of this file.
 
@@ -121,22 +121,25 @@ cd ../benchmarks
 The contents of this directory is as follows:
 
 dumst
-└── benchmarks
-    ├── 1.boundedFib
-    │   ├── boundedfib.go      ## Code for benchmarking 
-    │   ├── goscr              
-    │   │   ├── boundedFib     ## Directory for generated code
-    │   │   ├── BoundedFib.scr ## Protocol specification
-    │   │   └── main.go        ## GoScr code: callback instantiation
-    │   └── base               ## Base Go implementation
-    ├── ...
-    ├── 7.quicksort
-    ├── run_bench
-    ├── scripts
-    └── use_cases
-        ├── 01.ring
-        ├── ...
-        └── 17.minmax
+`-- benchmarks
+    |   |-- boundedfib.go      ## Code for benchmarking 
+    |   |-- goscr              
+    |   |   |-- boundedFib     ## Directory for generated code
+    |   |   |-- BoundedFib.scr ## Protocol specification
+    |   |   `-- main.go        ## GoScr code: callback instantiation
+    |   `-- base               ## Base Go implementation
+    |-- [...]
+    |-- 7.quicksort
+    |-- run_bench
+    |-- scripts
+    |   |-- clean.sh
+    |   |-- compile_nuscr.sh
+    |   |-- generate.sh
+    |   `-- usecases.sh
+    `-- use_cases
+        |-- 01.ring
+        |-- [...]
+        `-- 17.minmax
 
     * From `1.boundedFib` to `7.quicksort`, you can find the programs used for
       our benchmarks in Figure 7 on page 20.
@@ -209,64 +212,50 @@ can simply follow the instructions under **Docker Manual Instructions**.
 ## Directory Structure
 
 dumst
-├── benchmarks
-│   ├── 1.boundedFib
-│   ├── 2.boundedPrimeSieve
-│   ├── 3.fannkuch
-│   ├── 4.knuc
-│   ├── 5.regex
-│   ├── 6.spectralnorm
-│   ├── 7.quicksort
-│   ├── run_bench
-│   │   ├── benchmark
-│   │   ├── benchmark-results.txt
-│   │   ├── data
-│   │   ├── geninputs.go
-│   │   ├── measurements
-│   │   ├── run_bench
-│   │   └── run.go
-│   ├── scripts
-│   └── use_cases
-│       ├── 01.ring
-│       ├── 02.pipeline
-│       ├── 03.recPipeline
-│       ├── 04.recTree
-│       ├── 05.recTaskGen
-│       ├── 06.forkJoin
-│       ├── 07.recForkJoin
-│       ├── 08.boundedFib -> ../1.boundedFib
-│       ├── 09.unboundedFib
-│       ├── 10.fannkuch -> ../3.fannkuch
-│       ├── 11.spectralnorm -> ../6.spectralnorm
-│       ├── 12.regex -> ../5.regex
-│       ├── 13.knuc -> ../4.knuc
-│       ├── 14.primeSieve -> ../2.boundedPrimeSieve
-│       ├── 15.taskGen
-│       ├── 16.dns
-│       ├── 17.minmax
-│       └── compile_all.sh -> ../scripts/usecases.sh
-├── ECOOP_AE_Submission_Document.md
-├── getting_started.sh
-├── nuscr
-│   ├── bin
-│   │   ├── dune
-│   │   └── main.ml
-│   ├── CHANGES.md
-│   ├── dune-project
-│   ├── lib
-│   │   ├── syntax.ml
-│   │   ├── gocodegen.ml
-│   │   ├── goenvs.ml
-│   │   ├── goimpl.ml
-│   │   ├── gonames.ml
-│   │   ├── gtype.ml
-│   │   ├── ltype.ml
-│   │   ...
-│   ├── LICENSE
-│   ├── nuscr.opam
-│   ├── nuscr-web.opam
-│   ├── Readme.md
-│   ├── test
-│   ├── utils
-│   └── web
-└── README.md
+|-- Dockerfile
+|-- ECOOP_AE_Submission_Document.md
+|-- README.md
+|-- WELCOME
+|-- benchmarks
+|   |-- 1.boundedFib
+|   |   |-- base
+|   |   |-- boundedfib.go
+|   |   `-- goscr
+|   |-- 2.boundedPrimeSieve
+|   |-- 3.fannkuch
+|   |-- 4.knuc
+|   |-- 5.regex
+|   |-- 6.spectralnorm
+|   |-- 7.quicksort
+|   |-- run_bench
+|   |-- scripts
+|   |   |-- clean.sh
+|   |   |-- compile_nuscr.sh
+|   |   |-- generate.sh
+|   |   `-- usecases.sh
+|   `-- use_cases
+|-- dumst.tar.gz
+|-- getting_started.sh
+`-- nuscr
+    |-- CHANGES.md
+    |-- Dockerfile
+    |-- LICENSE
+    |-- Readme.md
+    |-- bin
+    |-- doc
+    |-- dune-project
+    |-- examples
+    |-- lib
+    |   |-- gocodegen.ml
+    |   |-- goenvs.ml
+    |   |-- goimpl.ml
+    |   |-- gonames.ml
+    |   |-- gtype.ml
+    |   |-- ltype.ml
+    |   |-- [...]
+    |   `-- syntax.ml
+    |-- nuscr-web.opam
+    |-- nuscr.opam
+    |-- test
+    |-- utils
+    `-- web
