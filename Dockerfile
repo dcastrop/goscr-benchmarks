@@ -4,11 +4,15 @@ RUN sudo apt-get update \
   && sudo apt-get install m4 -y \
   && sudo apt-get install wget -y \
   && sudo apt-get install pkg-config -y \
+  && sudo apt-get install locales -y && sudo locale-gen en_GB.UTF-8 \
   && sudo apt-get install libpcre2-dev -y \
   && sudo apt-get install libpcre3-dev -y \
   && sudo apt-get install vim -y \
   && sudo apt-get install tree -y \
   && sudo rm -rf /var/lib/apt/lists/* /tmp/*
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
 
 COPY --chown=opam:opam ./ $HOME/dumst
 
