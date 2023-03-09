@@ -14,7 +14,7 @@ Please list for each distinct component of your artifact:
   Docker image with source code and protocol specification examples
 
 * can be found in which location:
-  [TODO:link]()
+  [URL](https://mega.nz/file/uiAwyLab#fv6MtCHjWoMWMBd90jqcNkiIus8vOsYFSWbClXX-OXU)
 
 * Which badges do you claim for your artifact?  
   _Reusable and available_
@@ -87,14 +87,14 @@ Please list any specific hardware or software requirements for accessing your ar
 
 ## Getting Started
 
-You can find the getting started guide in the README.md provided with the Docker image at [TODO:link](). Download the file as `dumst.tar.gz` and run:
+You can find the getting started guide in the README.md provided with the Docker image at [URL](https://mega.nz/file/uiAwyLab#fv6MtCHjWoMWMBd90jqcNkiIus8vOsYFSWbClXX-OXU). Download the file as `dumst.tar.gz` and run:
 ```
-gunzip -c dumst.tar.gz | docker load
+docker load < dumst.tar.gz
 docker run -it --rm dumst
 ```
 Note that depending on your Docker installation, you may need to run the commands as `root` with `sudo`:
 ```
-gunzip -c dumst.tar.gz | sudo docker load
+sudo docker load < dumst.tar.gz
 sudo docker run -it --rm dumst
 ```
 Upon running the container, a short overview will be printed on the console directing you to the appropriate README.md with the _Getting Started_ guide.
