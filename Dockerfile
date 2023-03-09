@@ -16,7 +16,8 @@ COPY --chown=opam:opam ./ $HOME/artifact/dumst
 WORKDIR $HOME/artifact/dumst/nuscr
 
 RUN opam pin add --no-action -y nuscr.dev -k path . \
-  && opam install -dt ./nuscr.opam --deps-only
+  && opam install -dt ./nuscr.opam --deps-only \
+  && opam clean -a -c -s --logs -r
 
 # RUN eval $(opam config env) \
 #  && dune subst \
@@ -40,7 +41,12 @@ RUN cp ${HOME}/.bashrc ${HOME}/artifact \
 FROM ocaml/opam:ubuntu
 
 RUN sudo apt-get update \
-  && sudo apt-get install pkg-config -y
+  && sudo apt-get install pkg-config -y \
+  && sudo apt-get install vim -y \
+  && sudo apt-get install tree -y \ 
+  && sudo apt-get install libpcre3-dev -y \
+  && sudo rm -rf ${HOME}/opam-repository \
+  && sudo rm -rf /var/lib/apt/lists/* /tmp/*
 
 COPY --from=build ${HOME}/artifact ./
 
