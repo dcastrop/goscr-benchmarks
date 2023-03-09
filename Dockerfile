@@ -1,38 +1,47 @@
-FROM ocaml/opam:ubuntu
+FROM ocaml/opam:ubuntu as build
 
 RUN sudo apt-get update \
   && sudo apt-get install m4 -y \
   && sudo apt-get install wget -y \
-  && sudo apt-get install pkg-config -y \
   && sudo apt-get install libpcre2-dev -y \
   && sudo apt-get install libpcre3-dev -y \
   && sudo apt-get install vim -y \
   && sudo apt-get install tree -y \
   && sudo rm -rf /var/lib/apt/lists/* /tmp/*
 
-COPY --chown=opam:opam ./ $HOME/dumst
+RUN mkdir ${HOME}/artifact
 
-WORKDIR $HOME/dumst
-WORKDIR $HOME/dumst/nuscr
+COPY --chown=opam:opam ./ $HOME/artifact/dumst
 
-RUN opam update \
-  && opam pin add --no-action -y nuscr.dev -k path . \
+WORKDIR $HOME/artifact/dumst/nuscr
+
+RUN opam pin add --no-action -y nuscr.dev -k path . \
   && opam install -dt ./nuscr.opam --deps-only
 
-RUN eval $(opam config env) \
-  && dune subst \
-  && dune build -p nuscr\
-  && dune install nuscr
+# RUN eval $(opam config env) \
+#  && dune subst \
+#  && dune build -p nuscr\
+#  && dune install nuscr
 
-RUN mkdir ${HOME}/.go 
-WORKDIR $HOME/.go
+WORKDIR $HOME
+
+RUN mkdir ${HOME}/artifact/.go 
 RUN wget https://go.dev/dl/go1.15.2.linux-amd64.tar.gz \
-  && tar -xzf go1.15.2.linux-amd64.tar.gz
+  && tar -C ${HOME}/artifact/.go -xzf go1.15.2.linux-amd64.tar.gz
+
+RUN cp ${HOME}/.bashrc ${HOME}/artifact \
+  && cp -r ${HOME}/.opam ${HOME}/artifact \
+  && echo "export PATH=$HOME/.go/go/bin:${PATH}" >> ${HOME}/artifact/.bashrc \
+  && echo "export GOROOT=$HOME/.go/go" >> ${HOME}/artifact/.bashrc \
+  && echo "export GOPATH=$HOME/dumst/.gopath" >> ${HOME}/artifact/.bashrc \
+  && echo 'eval $(opam env)' >> ${HOME}/artifact/.bashrc \
+  && echo "cat ${HOME}/dumst/WELCOME" >> ${HOME}/artifact/.bashrc
+
+FROM ocaml/opam:ubuntu
+
+RUN sudo apt-get update \
+  && sudo apt-get install pkg-config -y
+
+COPY --from=build ${HOME}/artifact ./
 
 WORKDIR $HOME/dumst
-
-RUN echo "export PATH=$HOME/.go/go/bin:${PATH}" >> ${HOME}/.bashrc \
-  && echo "export GOROOT=$HOME/.go/go" >> ${HOME}/.bashrc \
-  && echo "export GOPATH=$HOME/dumst/.gopath" >> ${HOME}/.bashrc \
-  && echo 'eval $(opam env)' >> ${HOME}/.bashrc \
-  && echo "cat ${HOME}/dumst/WELCOME" >> ${HOME}/.bashrc

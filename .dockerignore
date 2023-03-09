@@ -5,6 +5,7 @@
 *.git
 # emacs files
 *~
+dumst.tar.gz
 
 **/*.install
 **/_build/
